@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title></title>
+  <link rel="stylesheet" href="../static/styles/{{theme}}.css">
+  <link rel="icon" href="../static/images/razor.ico">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../static/styles/emojionearea.css">
+  <script src="../static/scripts/emojionearea.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../static/scripts/functions.js"></script>
+  <style media="screen">
+  .emojionearea {
+    width: 98%;
+  }
+
+  .emojionearea.focused {
+    width: 98%;
+  }
+  .emojionearea .emojionearea-picker {
+    background: rgb(19, 22, 48);
+  }
+  .emojionearea, .emojionearea.form-control, .emojionearea {
+    width: 93%;
+  }
+  .emojionearea, .emojionearea.form-control {
+    {% if  theme == 'light' %}
+      background: rgb(224, 222, 222) none repeat scroll 0 0;
+      border-radius: 5px;
+      border-color: rgba(202, 30, 208,0);
+      width:100%;
+      margin-left: 5px;
+      margin-bottom: 10px;
+      padding-left: 0px;
+      color: white;
+      font-size: 19px;
+      height:61px;
+    {% else %}
+      background: rgb(7, 10, 29) none repeat scroll 0 0;
+      border-radius: 5px;
+      border-color: rgba(202, 30, 208,8);
+      width:100%;
+      margin-left: 5px;
+      margin-bottom: 10px;
+      padding-left: 0px;
+      color: white;
+      font-size: 19px;
+      height:61px;
+    {% endif %}
+
+  }
+
+  .emojionearea .emojionearea-editor {
+    height: 60px;
+    min-height: 0px;
+    {% if theme == 'light' %}
+      color: #5f5f5f;;
+    {% else %}
+      color: white;
+    {% endif %}
+    font-size: 18px;
+    overflow: hidden;
+    padding: 6px 45px 6px 12px;
+  }
+
+  .emojionearea .emojionearea-button > div.emojionearea-button-open {
+    display: none;
+  }
+  .emojionearea .emojionearea-button > div.emojionearea-button-close {
+    display: none;
+  }
+  .emojionearea .emojionearea-button {
+    display: none;
+  }
+
+  .emojionearea-button {
+    z-index: 5;
+    position: absolute;
+    right: 14%;
+    width: 35px;
+    height: 35px;
+    font-size: 34px;
+    color: rgb(233, 145, 2);
+    cursor: pointer;
+    -moz-transition: opacity 300ms ease-in-out;
+    -o-transition: opacity 300ms ease-in-out;
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+  }
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area .emojionearea-category-title {
+    background: rgb(19, 22, 48);
+  }
+
+  .emojionearea .emojionearea-picker .emojionearea-filters {
+    background: rgb(19, 22, 48);
+  }
+
+  .emojionearea .emojionearea-picker .emojionearea-filters .emojionearea-filter.active {
+    background: rgb(202, 30, 208);
+  }
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area {
+    overflow: hidden;
+  }
+
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area:hover {
+    overflow: auto;
+  }
+
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area::-webkit-scrollbar {
+    width: 6px;
+    background-color: $primary-color;
+  }
+
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area::-webkit-scrollbar-thumb {
+    background-color: rgb(202, 30, 208);
+    border-radius: 2px;
+    height: 50px;
+  }
+
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: $primary-color;
+  }
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area .emojibtn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .emojionearea .emojionearea-picker .emojionearea-scroll-area .emojibtn i, .emojionearea .emojionearea-picker .emojionearea-scroll-area .emojibtn img {
+    width: 30px;
+    height: 30px;
+  }
+
+  {% if theme == 'light' %}
+    .user-image {
+      color: rgb(7,10,29);
+    }
+  {% endif %}
+  @media screen and (min-width: 697px) {
+    .emojionearea-button {
+      right: 10%;
+    }
+  }
+  </style>
+</head>
+<body class = "body"  onload= "load_messages()" id = "body">
+  <div class="grid">
+    <div class="side-container" id = "menu">
+      <div class="side-menu">
+        <div class="">
+          <div class="side-panel-header">
+            <div class="user-image">
+              {% if hasProfile %}
+                <img src="../static/profile_images/{{username}}{{profile_type}}" id="side-panel-user-icon">
+              {% else %}
+                <i class="fas fa-user"></i>
+              {% endif %}
+            </div>
+            <div class="user-details">
+              <p>{{username}}</p>
+            </div>
+          </div><!--side-panel-header-->
+        </div>
+        <div class="channels-header">
+          <div class="channels-paragraph">
+            <p>Channels</p>
+          </div>
+          <div class="add-channel-section">
+            <img src="../static/images/plus-button.png" id="add-channel-button">
+          </div>
+        </div>
+        <div class="scrollbar" id="style-15">
+          <div class="force-overflow">
+            <div class="side-panel">
+              <div class="channel-list-container">
+                <!--channel-list-header-->
+                <div class="channel-list">
+                  {% for channel in channels %}
+                    <li class="channel-list-item" name = "{{channel}}" data-channel = "{{channel}}" onclick="channel_click()">{{ channel }}<span class="badge badge-light" id = "badge-{{channel}}"></span></li>
+                  {% endfor %}
+                </div><!--channel-list-->
+              </div><!--channel-list-container-->
+            </div><!--side panel-->
+          </div><!--force overflow-->
+        </div><!--scrollbar-->
+      </div>
+    </div>
+    <div class="main-panel" id = "main-panel">
+      <div class="mesgs">
+        <div class="chat-header">
+          <div class="image-section">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="name-section">
+            <p id = "chat-header-name">Jean Joel</p>
+          </div>
+        </div>
+        <div id = "arrow-right" class="arrow-right">
+        <div id="arrow-right-child">
+        <a id = "arrow-link" data-toggle="collapse" href="#menu" role="button" aria-expanded="true" aria-controls="menu"><img src="../static/images/arrow-right.png" onclick="toggle_panel()" id ="arrow-image"></a>
+        </div>
+        </div>
+        <div class="messages-scroll" id="style-15">
+          <div class="force-overflow">
+            <div class="message-history" id = "message-history">
+
+            </div>
+          </div>
+        </div>
+
+        <div class="type-message">
+          <div class="write-message">
+            <textarea id = "textarea" name="name" cols="80" placeholder="Type a message"></textarea>
+            <div class="emojionearea-button">
+              <i class="fas fa-grin-alt" onclick = "toggle_emoji_picker()"></i>
+            </div>
+          </div>
+          <div class="button-send-section">
+            <button class="message-send-button" id = "message-send-button" onclick="send_message()" type="button"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!--grid-->
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="popup-content">
+      <div class="popup-close">
+        <span class="close">&times;</span>
+      </div>
+      <div class="popup-header">
+        <div class="popup-title">
+          <h2>Create channel</h2>
+        </div>
+      </div>
+      <div class="">
+        <form class="channel-form">
+          <input type="text" id = "channel-input" placeholder="Enter a channel name">
+          <div class="error-message" id = "channel-creation-error">
+            <p id = "channel-error-paragraph" >error</p>
+          </div>
+          <div class="">
+            <button type="button" role = "button" name="continue-button" onclick="create_channel()">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="join-modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="popup-content">
+      <div class="popup-close">
+        <span class="close">&times;</span>
+      </div>
+      <div class="popup-header">
+        <div class="popup-title">
+          <h2>Would you like to join <span id='channel-name-span'></span>?</h2>
+        </div>
+
+      </div>
+      <div class="">
+        <form class="join-form">
+          <div class="join-button">
+            <button type="button" role = "button" name="continue-button" data-value="yes">Yes</button>
+          </div>
+          <div class="join-button">
+            <button type="button" role = "button" name="continue-button" data-value="no">No</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+  var modal2 = document.getElementById('join-modal');
+  // Get the button that opens the modal
+  var btn = document.getElementById("add-channel-button");
+
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal
+  btn.onclick = function() {
+    modal.style.display = "flex";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+    modal2.style.display = "none";
+  }
+
+  $('.close').click(function (){
+    modal.style.display = "none";
+    modal2.style.display = "none";
+  });
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+
+    if (event.target == modal2) {
+      modal2.style.display = 'none';
+    }
+  }
+</script>
+<script>
+$(document).ready(function () {
+  $("#textarea").emojioneArea({
+    search: false
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+Flask
+Flask-SocketIO
+eventlet
+virtualenv
+flask-session
